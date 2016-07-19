@@ -9,4 +9,4 @@ spring:
 logging:
   level:
     root: info
-    com.jipasoft.morphia: debug
+    com.jipasoft: debug

@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import com.jipasoft.morphia.entity.Author;
@@ -14,7 +15,7 @@ import com.jipasoft.morphia.entity.Book;
 import com.jipasoft.morphia.repository.AuthorRepository;
 import com.jipasoft.morphia.repository.BookRepository;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = EmbeddedMongoAutoConfiguration.class)
 public class Application {
 
 	public static void main(String[] args) {
