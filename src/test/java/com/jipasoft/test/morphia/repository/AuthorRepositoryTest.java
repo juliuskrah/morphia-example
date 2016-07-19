@@ -34,7 +34,7 @@ public class AuthorRepositoryTest extends ApplicationTests {
 
 	@PostConstruct
 	public void init() {
-		this.staticMongo = mongodExecutable;
+		AuthorRepositoryTest.staticMongo = this.mongodExecutable;
 	}
 
 	@Test
@@ -51,6 +51,8 @@ public class AuthorRepositoryTest extends ApplicationTests {
 
 	@AfterClass
 	public static void tearDown() {
+		log.debug("Tearing down...");
 		staticMongo.stop();
+		log.debug("Teardown successfull");
 	}
 }
