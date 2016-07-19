@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: morphia
+      database: morphia
+      username: morphia
+      password: morphia
+      port: 7070
+logging:
+  level:
+    root: info
+    com.jipasoft.morphia: debug
