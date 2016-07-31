@@ -5,6 +5,7 @@ spring:
       database: morphia
       username: morphia
       password: morphia
+      uri: mongodb://morphia:morphia@localhost:7070
 logging:
   level:
     root: info
