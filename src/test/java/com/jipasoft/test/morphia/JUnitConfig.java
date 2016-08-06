@@ -1,7 +1,6 @@
 package com.jipasoft.test.morphia;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -14,9 +13,9 @@ import org.springframework.context.annotation.Bean;
 import com.jipasoft.morphia.entity.Entities;
 import com.jipasoft.morphia.repository.AuthorRepository;
 import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.IMongodConfig;
 import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
@@ -27,9 +26,7 @@ import de.flapdoodle.embed.process.runtime.Network;
 public class JUnitConfig {
 	@Autowired
 	private MongoProperties mongoProperties;
-
-	int port = 0;
-	private MongodStarter starter = MongodStarter.getDefaultInstance();
+	private int port;
 
 	private Morphia morphia() {
 		final Morphia morphia = new Morphia();
@@ -38,8 +35,13 @@ public class JUnitConfig {
 		return morphia;
 	}
 
-	public int getPort() {
-		return port = mongoProperties.getPort();
+	private int getPort() throws IOException {
+		if (mongoProperties.getPort() == 0)
+			port = Network.getFreeServerPort();
+		else
+			port = mongoProperties.getPort();
+
+		return port;
 	}
 
 	public static void main(String[] args) {
@@ -47,25 +49,20 @@ public class JUnitConfig {
 	}
 
 	@Bean
-	public MongoClient mongoClient(MongodExecutable mongodExecutable) throws UnknownHostException {
-
-		MongoClient mongoClient = new MongoClient("localhost", getPort());
-
-		return mongoClient;
+	public MongoClient mongoClient(MongodExecutable mongodExecutable) {
+		return new MongoClient(new ServerAddress("localhost", port));
 	}
 
 	@Bean
-	public MongodExecutable mongodExecutable() throws IOException {
+	public IMongodConfig mongodConfig() throws IOException {
 		//@formatter:off
-		IMongodConfig mongodConfig = new MongodConfigBuilder()
-			.version(Version.Main.PRODUCTION).withLaunchArgument("--storageEngine", "mmapv1")
-			.net(new Net(getPort(), Network.localhostIsIPv6()))
-			.build();
+		MongodConfigBuilder builder = new MongodConfigBuilder()
+			.version(Version.Main.PRODUCTION)
+			.withLaunchArgument("--storageEngine", "mmapv1")
+			.net(new Net(getPort(), 
+					Network.localhostIsIPv6()));
 		//@formatter:on
-		MongodExecutable mongodExecutable = starter.prepare(mongodConfig);
-		mongodExecutable.start();
-
-		return mongodExecutable;
+		return builder.build();
 	}
 
 	@Bean

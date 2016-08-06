@@ -6,9 +6,6 @@ import java.util.Date;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.PostConstruct;
-
-import org.junit.AfterClass;
 import org.junit.Test;
 import org.mongodb.morphia.Key;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import com.jipasoft.morphia.repository.AuthorRepository;
 import com.jipasoft.morphia.repository.BookRepository;
 import com.jipasoft.test.morphia.ApplicationTests;
 
-import de.flapdoodle.embed.mongo.MongodExecutable;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -28,14 +24,6 @@ public class AuthorRepositoryTest extends ApplicationTests {
 	private AuthorRepository authorRepository;
 	@Autowired
 	private BookRepository bookRepository;
-	@Autowired
-	private MongodExecutable mongodExecutable;
-	private static MongodExecutable staticMongo;
-
-	@PostConstruct
-	public void init() {
-		AuthorRepositoryTest.staticMongo = this.mongodExecutable;
-	}
 
 	@Test
 	public void testSave() {
@@ -49,10 +37,4 @@ public class AuthorRepositoryTest extends ApplicationTests {
 		log.info("Id created is {}", author.getId());
 	}
 
-	@AfterClass
-	public static void tearDown() {
-		log.debug("Tearing down...");
-		staticMongo.stop();
-		log.debug("Teardown successfull");
-	}
 }

@@ -27,11 +27,11 @@ repositories {
 
 
 dependencies {
-	compile('org.projectlombok:lombok:1.16.6')
+	compile('org.projectlombok:lombok')
 	compile('org.springframework.boot:spring-boot-starter')
 	compile('org.mongodb.morphia:morphia:1.2.1')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.3')
+	testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 }
 
 

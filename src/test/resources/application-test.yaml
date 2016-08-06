@@ -5,9 +5,10 @@ spring:
       database: morphia
       username: morphia
       password: morphia
-      port: 7070
-      uri: mongodb://morphia:morphia@localhost:7070
+      port: 0
+      uri: mongodb://morphia:morphia@localhost
 logging:
   level:
     root: info
     com.jipasoft: debug
+    de.flapdoodle.embed.mongo: debug
