@@ -1,4 +1,4 @@
-package com.jipasoft.test.morphia;
+package com.juliuskrah.morphia;
 
 import java.io.IOException;
 
@@ -9,9 +9,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
-import com.jipasoft.morphia.entity.Entities;
-import com.jipasoft.morphia.repository.AuthorRepository;
+import com.juliuskrah.morphia.entity.Entities;
+import com.juliuskrah.morphia.repository.AuthorRepository;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
@@ -22,6 +23,7 @@ import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 
+@Profile("test")
 @SpringBootApplication(scanBasePackageClasses = AuthorRepository.class)
 public class JUnitConfig {
 	@Autowired
