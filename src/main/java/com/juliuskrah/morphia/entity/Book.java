@@ -18,21 +18,21 @@ package com.juliuskrah.morphia.entity;
 import java.time.LocalDate;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Property;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
-@Entity(value = "books", noClassnameStored = true)
+@Document(collection = "books")
 @NoArgsConstructor
 public class Book {
 	@Id
 	private ObjectId id;
 	private String title;
-	@Property("published")
+	@Field("published")
 	private LocalDate publicationDate;
 
 	public Book(String title, LocalDate publicationDate) {

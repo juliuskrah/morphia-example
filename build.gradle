@@ -15,8 +15,8 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 jar {
-	baseName = 'morphia-sample'
-	version = '0.0.2-SNAPSHOT'
+	baseName = 'spring-data-sample'
+	version = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -31,8 +31,7 @@ task wrapper(type: Wrapper) {
 
 dependencies {
 	compile('org.projectlombok:lombok')
-	compile('org.springframework.boot:spring-boot-starter')
-	compile('org.mongodb.morphia:morphia:1.3.2')
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 }

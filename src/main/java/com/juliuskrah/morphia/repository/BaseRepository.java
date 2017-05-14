@@ -13,17 +13,22 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.juliuskrah.morphia.repository.impl;
+package com.juliuskrah.morphia.repository;
 
-import org.bson.types.ObjectId;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.repository.Repository;
 
-import com.juliuskrah.morphia.entity.Book;
-import com.juliuskrah.morphia.repository.BookRepository;
+import java.io.Serializable;
+import java.util.Optional;
 
-@Repository
-public class BookRepositoryImpl extends BaseRepository<Book, ObjectId> implements BookRepository {
-	public BookRepositoryImpl() {
-		super(Book.class);
-	}
+/**
+ * Created by Julius Krah on 5/14/2017.
+ *
+ * @author Julius Krah
+ */
+@NoRepositoryBean
+public interface BaseRepository<T, ID extends Serializable> extends Repository<T, ID> {
+    Optional<T> findOne(ID id);
+    Optional<T> save(T entity);
+    void delete(T entity);
 }

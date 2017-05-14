@@ -18,28 +18,23 @@ package com.juliuskrah.morphia.entity;
 import java.util.Set;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Field;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Index;
-import org.mongodb.morphia.annotations.Indexes;
-import org.mongodb.morphia.annotations.Reference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Entity(value = "authors", noClassnameStored = true)
-@Indexes({
-    @Index(fields = { @Field("name") })
-  }
-)
+@Document(collection = "authors")
 @NoArgsConstructor
 public class Author {
 	@Id
 	private ObjectId id;
+	@Indexed
 	private String name;
-	@Reference
+	@DBRef
 	private Set<Book> books;
 
 	public Author(String name) {

@@ -16,10 +16,11 @@
 package com.juliuskrah.morphia;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.mongodb.morphia.query.UpdateOperations;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
@@ -30,6 +31,7 @@ import com.juliuskrah.morphia.entity.Book;
 import com.juliuskrah.morphia.repository.AuthorRepository;
 import com.juliuskrah.morphia.repository.BookRepository;
 
+@Slf4j
 @SpringBootApplication(exclude = EmbeddedMongoAutoConfiguration.class)
 public class Application {
 
@@ -39,20 +41,20 @@ public class Application {
 		AuthorRepository authorRepo = ctx.getBean(AuthorRepository.class);
 		
 		Book ci = new Book("Continous Integration", LocalDate.now());
-		bookRepo.create(ci);
+		bookRepo.save(ci);
 		
 		Author julius = new Author("Julius");
 		julius.setBooks(Stream.of(ci).collect(Collectors.toSet()));
-		authorRepo.create(julius);	
+		authorRepo.save(julius);
+
+		log.info("Book: {}", ci);
+
+		log.info("Author: {}", julius);
 		
-		Author read = authorRepo.read(julius.getId());
+		Optional<Author> read = authorRepo.findOne(julius.getId());
 		
-		UpdateOperations<Author> ops = authorRepo.createOperations()
-				.set("name", "Deborah");
-		authorRepo.update(read, ops);
-		
-		read.setName("Abeiku");
-		authorRepo.create(read);
+		read.get().setName("Abeiku");
+		authorRepo.save(read.get());
 		
 		authorRepo.delete(julius);
 	}

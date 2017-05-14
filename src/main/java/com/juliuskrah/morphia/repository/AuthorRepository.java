@@ -19,4 +19,4 @@ import org.bson.types.ObjectId;
 
 import com.juliuskrah.morphia.entity.Author;
 
-public interface AuthorRepository extends CrudRepository<Author, ObjectId>{}
+public interface AuthorRepository extends BaseRepository<Author, ObjectId> {}

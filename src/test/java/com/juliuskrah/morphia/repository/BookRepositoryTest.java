@@ -3,10 +3,10 @@ package com.juliuskrah.morphia.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.junit.Test;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.mongodb.morphia.query.UpdateResults;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.juliuskrah.morphia.ApplicationTests;
@@ -20,7 +20,7 @@ public class BookRepositoryTest extends ApplicationTests {
 	@Test
 	public void testCreate() {
 		Book ci = new Book("Continous Integration", LocalDate.now());
-		bookRepository.create(ci);
+		bookRepository.save(ci);
 
 		assertThat(ci).isNotNull();
 		assertThat(ci.getId()).isNotNull();
@@ -29,41 +29,45 @@ public class BookRepositoryTest extends ApplicationTests {
 	@Test
 	public void testRead() {
 		Book ci = new Book("Continous Integration", LocalDate.now());
-		bookRepository.create(ci);
+		bookRepository.save(ci);
 
 		assertThat(ci).isNotNull();
 
-		Book read = bookRepository.read(ci.getId());
+		Optional<Book> read = bookRepository.findOne(ci.getId());
 
 		assertThat(read).isNotNull();
-		assertThat(read.getId()).isEqualTo(ci.getId());
+		assertThat(read.isPresent()).isTrue();
+		assertThat(read.get().getId()).isEqualTo(ci.getId());
 	}
 
 	@Test
 	public void testUpdate() {
 		Book ci = new Book("Continous Integration", LocalDate.now());
-		bookRepository.create(ci);
+		bookRepository.save(ci);
 		
 		assertThat(ci).isNotNull();
+        Optional<Book> read = bookRepository.findOne(ci.getId());
+
+        assertThat(read.isPresent()).isTrue();
+        read.get().setTitle("Server Fault");
+
+		Optional<Book> results = bookRepository.save(read.get());
 		
-		UpdateOperations<Book> ops = bookRepository.createOperations()
-				.set("title", "Enterprise Integration")
-				.set("publicationDate", LocalDate.now());
-		UpdateResults results = bookRepository.update(ci, ops);
-		
-		assertThat(results.getUpdatedExisting()).isTrue();
+		assertThat(results.get().getTitle()).isEqualTo("Server Fault");
 	}
 
 	@Test
 	public void testDelete() {
 		Book ci = new Book("Continous Integration", LocalDate.now());
-		bookRepository.create(ci);
+		bookRepository.save(ci);
 		
 		assertThat(ci).isNotNull();
 		
-		WriteResult result = bookRepository.delete(ci);
+		bookRepository.delete(ci);
+
+        Optional<Book> read = bookRepository.findOne(ci.getId());
 		
-		assertThat(result.wasAcknowledged()).isTrue();
+		assertThat(read.isPresent()).isFalse();
 	}
 
 }
