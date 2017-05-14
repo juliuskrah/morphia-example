@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.juliuskrah.morphia.repository.CrudRepository;
+import com.mongodb.WriteResult;
 
 public class BaseRepository<T, ID extends Serializable> implements CrudRepository<T, ID> {
 	@Autowired
@@ -28,15 +31,18 @@ public class BaseRepository<T, ID extends Serializable> implements CrudRepositor
 	}
 
 	@Override
-	public Key<T> update(T author) {
-		// TODO Auto-generated method stub
-		return null;
+	public UpdateResults update(T entity, UpdateOperations<T> operations) {
+		return datastore.update(entity, operations);
 	}
 
 	@Override
-	public void delete(T author) {
-		// TODO Auto-generated method stub
+	public WriteResult delete(T entity) {
+		return datastore.delete(entity);
+	}
 
+	@Override
+	public UpdateOperations<T> createOperations() {
+		return datastore.createUpdateOperations(t);
 	}
 
 }

@@ -1,18 +1,20 @@
 package com.juliuskrah.morphia.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.juliuskrah.morphia.ApplicationTests;
 import com.juliuskrah.morphia.entity.Author;
 import com.juliuskrah.morphia.entity.Book;
+import com.mongodb.WriteResult;
 
 public class AuthorRepositoryTest extends ApplicationTests {
 	@Autowired
@@ -53,12 +55,35 @@ public class AuthorRepositoryTest extends ApplicationTests {
 
 	@Test
 	public void testUpdate() {
-		fail("Not implemented yet");
+		Book ci = new Book("Continous Integration", LocalDate.now());
+		bookRepository.create(ci);
+		
+		Author julius = new Author("Julius");
+		julius.setBooks(Stream.of(ci).collect(Collectors.toSet()));
+		authorRepository.create(julius);
+		
+		assertThat(julius).isNotNull();
+		
+		UpdateOperations<Author> ops = authorRepository.createOperations()
+				.set("name", "Abeiku");
+		UpdateResults results = authorRepository.update(julius, ops);
+		
+		assertThat(results.getUpdatedExisting()).isTrue();
 	}
 
 	@Test
 	public void testDelete() {
-		fail("Not implemented yet");
+		Book ci = new Book("Continous Integration", LocalDate.now());
+		bookRepository.create(ci);
+		
+		Author julius = new Author("Julius");
+		julius.setBooks(Stream.of(ci).collect(Collectors.toSet()));
+		authorRepository.create(julius);
+		
+		assertThat(julius).isNotNull();
+		
+		WriteResult result = authorRepository.delete(julius);
+		assertThat(result.wasAcknowledged()).isTrue();
 	}
 
 }

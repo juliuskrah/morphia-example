@@ -1,15 +1,17 @@
 package com.juliuskrah.morphia.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 
 import org.junit.Test;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.juliuskrah.morphia.ApplicationTests;
 import com.juliuskrah.morphia.entity.Book;
+import com.mongodb.WriteResult;
 
 public class BookRepositoryTest extends ApplicationTests {
 	@Autowired
@@ -39,12 +41,29 @@ public class BookRepositoryTest extends ApplicationTests {
 
 	@Test
 	public void testUpdate() {
-		fail("Not implemented yet");
+		Book ci = new Book("Continous Integration", LocalDate.now());
+		bookRepository.create(ci);
+		
+		assertThat(ci).isNotNull();
+		
+		UpdateOperations<Book> ops = bookRepository.createOperations()
+				.set("title", "Enterprise Integration")
+				.set("publicationDate", LocalDate.now());
+		UpdateResults results = bookRepository.update(ci, ops);
+		
+		assertThat(results.getUpdatedExisting()).isTrue();
 	}
 
 	@Test
 	public void testDelete() {
-		fail("Not implemented yet");
+		Book ci = new Book("Continous Integration", LocalDate.now());
+		bookRepository.create(ci);
+		
+		assertThat(ci).isNotNull();
+		
+		WriteResult result = bookRepository.delete(ci);
+		
+		assertThat(result.wasAcknowledged()).isTrue();
 	}
 
 }
