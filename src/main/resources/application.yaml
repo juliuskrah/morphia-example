@@ -15,12 +15,12 @@
 spring:
   data:
     mongodb:
-      authentication-database: morphia
-      database: morphia
-      username: morphia
-      password: morphia
+      authentication-database: spring_data
+      database: spring_data
+      username: spring-data
+      password: spring-data
       # uri: mongodb://localhost:27017      
 logging:
   level:
     root: info
-    com.jipasoft.morphia: debug
+    com.juliuskrah.morphia: debug
