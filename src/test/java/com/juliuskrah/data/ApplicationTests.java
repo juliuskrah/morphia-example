@@ -1,4 +1,4 @@
-package com.juliuskrah.morphia;
+package com.juliuskrah.data;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

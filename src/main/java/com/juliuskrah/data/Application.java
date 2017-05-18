@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.juliuskrah.morphia;
+package com.juliuskrah.data;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -26,10 +26,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 
-import com.juliuskrah.morphia.entity.Author;
-import com.juliuskrah.morphia.entity.Book;
-import com.juliuskrah.morphia.repository.AuthorRepository;
-import com.juliuskrah.morphia.repository.BookRepository;
+import com.juliuskrah.data.entity.Author;
+import com.juliuskrah.data.entity.Book;
+import com.juliuskrah.data.repository.AuthorRepository;
+import com.juliuskrah.data.repository.BookRepository;
 
 @Slf4j
 @SpringBootApplication(exclude = EmbeddedMongoAutoConfiguration.class)

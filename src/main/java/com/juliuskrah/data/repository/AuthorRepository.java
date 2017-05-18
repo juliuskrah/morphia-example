@@ -13,22 +13,10 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.juliuskrah.morphia.repository;
+package com.juliuskrah.data.repository;
 
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.data.repository.Repository;
+import org.bson.types.ObjectId;
 
-import java.io.Serializable;
-import java.util.Optional;
+import com.juliuskrah.data.entity.Author;
 
-/**
- * Created by Julius Krah on 5/14/2017.
- *
- * @author Julius Krah
- */
-@NoRepositoryBean
-public interface BaseRepository<T, ID extends Serializable> extends Repository<T, ID> {
-    Optional<T> findOne(ID id);
-    Optional<T> save(T entity);
-    void delete(T entity);
-}
+public interface AuthorRepository extends BaseRepository<Author, ObjectId> {}

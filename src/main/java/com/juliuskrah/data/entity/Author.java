@@ -13,10 +13,31 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.juliuskrah.morphia.repository;
+package com.juliuskrah.data.entity;
+
+import java.util.Set;
 
 import org.bson.types.ObjectId;
 
-import com.juliuskrah.morphia.entity.Book;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public interface BookRepository extends BaseRepository<Book, ObjectId> {}
+@Data
+@Document(collection = "authors")
+@NoArgsConstructor
+public class Author {
+	@Id
+	private ObjectId id;
+	@Indexed
+	private String name;
+	@DBRef
+	private Set<Book> books;
+
+	public Author(String name) {
+		this.name = name;
+	}
+}

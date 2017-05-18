@@ -1,4 +1,4 @@
-package com.juliuskrah.morphia.repository;
+package com.juliuskrah.data.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,9 +11,11 @@ import org.junit.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.juliuskrah.morphia.ApplicationTests;
-import com.juliuskrah.morphia.entity.Author;
-import com.juliuskrah.morphia.entity.Book;
+import com.juliuskrah.data.ApplicationTests;
+import com.juliuskrah.data.entity.Author;
+import com.juliuskrah.data.entity.Book;
+import com.juliuskrah.data.repository.AuthorRepository;
+import com.juliuskrah.data.repository.BookRepository;
 
 
 public class AuthorRepositoryTest extends ApplicationTests {

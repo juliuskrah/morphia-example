@@ -1,4 +1,4 @@
-package com.juliuskrah.morphia;
+package com.juliuskrah.data;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
