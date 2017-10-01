@@ -19,3 +19,6 @@ gradle-app.setting
 
 # IntelliJ
 .idea/
+
+# VS Code
+settings.json
