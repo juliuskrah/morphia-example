@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,26 +35,28 @@ import com.juliuskrah.morphia.repository.BookRepository;
 public class Application {
 
 	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(Application.class, args);
-		BookRepository bookRepo = ctx.getBean(BookRepository.class);
-		AuthorRepository authorRepo = ctx.getBean(AuthorRepository.class);
-		
-		Book ci = new Book("Continous Integration", LocalDate.now());
+		final ApplicationContext ctx = SpringApplication.run(Application.class, args);
+		final BookRepository bookRepo = ctx.getBean(BookRepository.class);
+		final AuthorRepository authorRepo = ctx.getBean(AuthorRepository.class);
+
+		final Book ci = new Book("Continous Integration", LocalDate.now());
 		bookRepo.create(ci);
-		
-		Author julius = new Author("Julius");
+
+		final Author julius = new Author("Julius");
 		julius.setBooks(Stream.of(ci).collect(Collectors.toSet()));
-		authorRepo.create(julius);	
-		
-		Author read = authorRepo.read(julius.getId());
-		
-		UpdateOperations<Author> ops = authorRepo.createOperations()
-				.set("name", "Deborah");
-		authorRepo.update(read, ops);
-		
+		authorRepo.create(julius);
+
+		final Author read = authorRepo.read(julius.getId());
+
+		final Query<Author> updateQuery = authorRepo.createQuery().filter("id =", julius.getId());
+
+		final UpdateOperations<Author> ops = authorRepo.createOperations().set("name", "Portia");
+		// authorRepo.update(read, ops);
+		authorRepo.update(updateQuery, ops);
+
 		read.setName("Abeiku");
 		authorRepo.create(read);
-		
+
 		authorRepo.delete(julius);
 	}
 

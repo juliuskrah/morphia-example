@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class BaseRepository<T, ID extends Serializable> implements CrudRepositor
 	}
 
 	@Override
+	public UpdateResults update(Query<T> query, UpdateOperations<T> operations) {
+		return datastore.update(query, operations);
+	}
+
+	@Override
 	public WriteResult delete(T entity) {
 		return datastore.delete(entity);
 	}
@@ -43,6 +49,11 @@ public class BaseRepository<T, ID extends Serializable> implements CrudRepositor
 	@Override
 	public UpdateOperations<T> createOperations() {
 		return datastore.createUpdateOperations(t);
+	}
+
+	@Override
+	public Query<T> createQuery() {
+		return datastore.createQuery(t);
 	}
 
 }

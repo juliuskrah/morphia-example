@@ -15,7 +15,7 @@
 spring:
   data:
     mongodb:
-      authentication-database: morphia
+      authentication-database: admin
       database: morphia
       username: morphia
       password: morphia
