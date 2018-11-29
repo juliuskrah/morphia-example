@@ -18,9 +18,9 @@ package com.juliuskrah.morphia.entity;
 import java.time.LocalDate;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Property;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.annotations.Id;
+import xyz.morphia.annotations.Property;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

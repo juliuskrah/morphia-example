@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.mongodb.morphia.query.UpdateResults;
+import xyz.morphia.query.UpdateOperations;
+import xyz.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.juliuskrah.morphia.ApplicationTests;

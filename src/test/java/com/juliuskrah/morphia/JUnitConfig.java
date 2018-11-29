@@ -2,10 +2,9 @@ package com.juliuskrah.morphia;
 
 import java.io.IOException;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
+import xyz.morphia.Datastore;
+import xyz.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
@@ -46,10 +45,6 @@ public class JUnitConfig {
 		return port;
 	}
 
-	public static void main(String[] args) {
-		SpringApplication.run(JUnitConfig.class, args);
-	}
-
 	@Bean
 	public MongoClient mongoClient(MongodExecutable mongodExecutable) {
 		return new MongoClient(new ServerAddress("localhost", port));
@@ -57,13 +52,10 @@ public class JUnitConfig {
 
 	@Bean
 	public IMongodConfig mongodConfig() throws IOException {
-		//@formatter:off
-		MongodConfigBuilder builder = new MongodConfigBuilder()
-			.version(Version.Main.PRODUCTION)
-			.withLaunchArgument("--storageEngine", "mmapv1")
-			.net(new Net(getPort(), 
-					Network.localhostIsIPv6()));
-		//@formatter:on
+		// @formatter:off
+		MongodConfigBuilder builder = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
+				.withLaunchArgument("--storageEngine", "mmapv1").net(new Net(getPort(), Network.localhostIsIPv6()));
+		// @formatter:on
 		return builder.build();
 	}
 

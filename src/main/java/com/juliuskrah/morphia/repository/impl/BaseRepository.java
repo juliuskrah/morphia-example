@@ -2,11 +2,11 @@ package com.juliuskrah.morphia.repository.impl;
 
 import java.io.Serializable;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.mongodb.morphia.query.UpdateResults;
+import xyz.morphia.Datastore;
+import xyz.morphia.Key;
+import xyz.morphia.query.Query;
+import xyz.morphia.query.UpdateOperations;
+import xyz.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.juliuskrah.morphia.repository.CrudRepository;

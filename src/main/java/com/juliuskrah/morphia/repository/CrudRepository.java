@@ -2,10 +2,10 @@ package com.juliuskrah.morphia.repository;
 
 import java.io.Serializable;
 
-import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.mongodb.morphia.query.UpdateResults;
+import xyz.morphia.Key;
+import xyz.morphia.query.Query;
+import xyz.morphia.query.UpdateOperations;
+import xyz.morphia.query.UpdateResults;
 
 import com.mongodb.WriteResult;
 

@@ -15,8 +15,8 @@
 */
 package com.juliuskrah.morphia.config;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
+import xyz.morphia.Datastore;
+import xyz.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
