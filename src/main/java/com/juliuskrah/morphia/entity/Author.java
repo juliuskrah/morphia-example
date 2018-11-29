@@ -25,13 +25,8 @@ import xyz.morphia.annotations.Index;
 import xyz.morphia.annotations.Indexes;
 import xyz.morphia.annotations.Reference;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
 @Entity(value = "authors", noClassnameStored = true)
 @Indexes({ @Index(fields = { @Field("name") }) })
-@NoArgsConstructor
 public class Author {
 	@Id
 	private ObjectId id;
@@ -39,7 +34,33 @@ public class Author {
 	@Reference
 	private Set<Book> books;
 
+	public Author() {}
+
 	public Author(String name) {
 		this.name = name;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<Book> books) {
+		this.books = books;
 	}
 }

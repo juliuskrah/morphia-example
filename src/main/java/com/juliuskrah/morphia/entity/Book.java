@@ -22,12 +22,7 @@ import xyz.morphia.annotations.Entity;
 import xyz.morphia.annotations.Id;
 import xyz.morphia.annotations.Property;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
 @Entity(value = "books", noClassnameStored = true)
-@NoArgsConstructor
 public class Book {
 	@Id
 	private ObjectId id;
@@ -35,8 +30,34 @@ public class Book {
 	@Property("published")
 	private LocalDate publicationDate;
 
+	public Book() {}
+
 	public Book(String title, LocalDate publicationDate) {
 		this.title = title;
+		this.publicationDate = publicationDate;
+	}
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public LocalDate getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(LocalDate publicationDate) {
 		this.publicationDate = publicationDate;
 	}
 }
